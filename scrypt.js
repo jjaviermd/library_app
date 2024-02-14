@@ -22,7 +22,13 @@ function addBookToLibrary(author, title, numberOfPages, readed) {
   return book;
 }
 
+function removeBookFromLibrary(i) {
+  myLibrary.splice(i, 1);
+  tableBody.deleteRow(i);
+}
+
 function addBookToTable(book) {
+  let index = myLibrary.length;
   let row = tableBody.insertRow();
   let authorCell = row.insertCell();
   authorCell.innerText = book.author;
@@ -32,6 +38,8 @@ function addBookToTable(book) {
   pagesCell.innerText = book.numberOfPages;
   let readedCell = row.insertCell();
   readedCell.innerText = book.readed ? "Readed" : "Not readed";
+  let deleteCell = row.insertCell();
+  deleteCell.innerHTML = `<button id="delete${index}" type="button">Delete</button>`;
 }
 
 function createBook(e) {
