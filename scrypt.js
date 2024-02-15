@@ -6,6 +6,7 @@ const dialog = document.querySelector("dialog");
 const dialogForm = document.querySelector("dialog form");
 const closeButton = document.querySelector("#close-dialog-button");
 const submitButton = document.querySelector("#submitbutton");
+const deleteBtns = document.getElementsByClassName("delete-btn");
 
 class Book {
   constructor(author, title, numberOfPages, readed) {
@@ -22,9 +23,9 @@ function addBookToLibrary(author, title, numberOfPages, readed) {
   return book;
 }
 
-function removeBookFromLibrary(i) {
-  myLibrary.splice(i, 1);
-  tableBody.deleteRow(i);
+function removeBookFromLibrary(e) {
+  index = e.target.parentNode.parentNode.rowIndex - 1;
+  tableBody.deleteRow(index);
 }
 
 function addBookToTable(book) {
@@ -39,7 +40,7 @@ function addBookToTable(book) {
   let readedCell = row.insertCell();
   readedCell.innerText = book.readed ? "Readed" : "Not readed";
   let deleteCell = row.insertCell();
-  deleteCell.innerHTML = `<button id="delete${index}" type="button">Delete</button>`;
+  deleteCell.innerHTML = `<button onclick = "removeBookFromLibrary(event)" class="delete-btn" id="delete${index}" type="button">Delete</button>`;
 }
 
 function createBook(e) {
@@ -70,3 +71,5 @@ submitButton.addEventListener("click", createBook);
 
 let book = new Book("mongo", "mango", 20, true);
 addBookToTable(book);
+
+// console.log(deleteBtns.length);
