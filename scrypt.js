@@ -15,6 +15,9 @@ class Book {
     this.numberOfPages = numberOfPages;
     this.readed = readed;
   }
+  switchReaded() {
+    this.readed = !this.readed;
+  }
 }
 
 function addBookToLibrary(author, title, numberOfPages, readed) {
