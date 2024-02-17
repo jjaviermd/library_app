@@ -32,8 +32,17 @@ function removeBookFromLibrary(e) {
   tableBody.deleteRow(index);
 }
 
+function switchStatus(e) {
+  let index = e.target.parentNode.parentNode.rowIndex - 1;
+  let book = myLibrary[index];
+  book.switchReaded();
+  tableBody.rows[index].cells[3].innerText = book.readed
+    ? "Readed"
+    : "Not readed";
+}
+
 function addBookToTable(book) {
-  let index = myLibrary.length;
+  // let index = myLibrary.length;
   let row = tableBody.insertRow();
   let authorCell = row.insertCell();
   authorCell.innerText = book.author;
@@ -45,6 +54,8 @@ function addBookToTable(book) {
   readedCell.innerText = book.readed ? "Readed" : "Not readed";
   let deleteCell = row.insertCell();
   deleteCell.innerHTML = `<button onclick = "removeBookFromLibrary(event)" type="button">Delete</button>`;
+  let switchCell = row.insertCell();
+  switchCell.innerHTML = `<button onclick = "switchStatus(event)" type="button">switch</button>`;
 }
 
 function createBook(e) {
@@ -59,12 +70,9 @@ function createBook(e) {
   dialog.close();
 }
 
-// "Show the dialog" button opens the dialog modally
 newBookButton.addEventListener("click", () => {
   dialog.showModal();
 });
-
-// "Close" button closes the dialog
 
 closeButton.addEventListener("click", () => {
   dialogForm.reset();
@@ -73,5 +81,17 @@ closeButton.addEventListener("click", () => {
 
 submitButton.addEventListener("click", createBook);
 
-let book = new Book("mongo", "mango", 20, true);
-addBookToTable(book);
+let book1 = addBookToLibrary(
+  "Fundamentals of Wavelets",
+  "Goswami, Jaideva",
+  228,
+  false
+);
+addBookToTable(book1);
+let book2 = addBookToLibrary(
+  "Structure & Interpretation of Computer Programs",
+  "Sussman, Gerald",
+  240,
+  false
+);
+addBookToTable(book2);
